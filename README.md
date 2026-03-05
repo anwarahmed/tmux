@@ -10,3 +10,5 @@ The following files can be ignored:
 - `README.md`
 - `.git`
 - `.gitignore`
+
+The original config was taken from [Omarchy tmux bindings](https://learn.omacom.io/2/the-omarchy-manual/53/hotkeys#tmux)
