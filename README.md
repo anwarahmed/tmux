@@ -10,3 +10,19 @@ The following files can be ignored:
 - `README.md`
 - `.git`
 - `.gitignore`
+
+## macOS Homebrew
+
+Install the following packages:
+
+```shell
+brew install tmux
+```
+
+## ArchLinux / Omarchy
+
+Install the following packages:
+
+```shell
+yay -S tmux
+```
