@@ -65,9 +65,34 @@ Local environment: tmux 3.7b, Arch/Omarchy, kitty terminal.
   exists on Omarchy — on macOS (a documented target in `README.md`) the key produces an error
   popup. Built-in listing is still reachable via `:list-keys`.
 
+### Deferred: macOS portability (audited 2026-08-15, no fix applied)
+
+This config is used on macOS as well, where a large share of it is inert. Deferred by choice,
+not yet addressed — 26 of the 42 bindings are Alt-based and at risk:
+
+- **`extkeys` is granted to `xterm-kitty` only** (`tmux.conf:80`), so `extended-keys on` does
+  nothing under any other TERM. That silently kills 13 bindings on macOS: `C-M-<arrow>` pane
+  focus, `C-M-S-<arrow>` resize, `M-Enter`, `M-S-Enter`, `M-Escape`, `M-S-Left/Right`. Fix is
+  to append the Mac terminal's TERM (`xterm-ghostty`, `xterm-256color` for iTerm2).
+- **Option is not Meta by default on macOS terminals**, which disables the other 13
+  (`M-1`..`M-9`, `M-<arrow>`). Per-terminal setting, not fixable from tmux.
+- **`default-terminal "tmux-256color"`** (`tmux.conf:65`) may not exist in Apple's stock
+  terminfo and can stop tmux from starting. Check with `infocmp tmux-256color`.
+- **`C-Space` prefix** collides with the macOS "select previous input source" shortcut;
+  Ctrl+arrows collide with Mission Control. `prefix2 C-b` is the working fallback.
+- **`*:RGB`** (`tmux.conf:66`) misrenders on Terminal.app, which is not truecolor.
+- **OSC 52 copy** is ignored by Terminal.app and needs a pref enabled in iTerm2;
+  `copy-pipe-and-cancel "pbcopy"` is the macOS-native alternative.
+
+The intended fix is an `if-shell '[ "$(uname)" = "Darwin" ]'` block. Note that such a block is
+exactly what `omarchy-refresh-tmux` will erase, so record it here when it lands.
+
 ## Work log
 
 - **2026-08-15** — Added this file and extended `.gitignore` to cover `.claude/` and `*.bak.*`.
+  Committed the refreshed `tmux.conf` and deleted `tmux.conf.bak.1786746843` (its only unique
+  content was one comment line; the setting it described survives at `tmux.conf:81`). Audited
+  macOS portability — see Deferred above, no fix applied.
 - **2026-08-14** — `omarchy-refresh-tmux` overwrote `tmux.conf` with the new Omarchy default
   (backup: `tmux.conf.bak.1786746843`). Net effect: `-N` descriptions on every binding, new
   `prefix ?` keybinding popup, and `set -as terminal-features ",*:clipboard"` folded in from the
