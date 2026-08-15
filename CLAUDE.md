@@ -35,6 +35,11 @@ Practical consequences:
 - Deliberate personal divergence from the Omarchy default should be **documented below**, so
   it can be re-applied after a refresh clobbers it.
 
+**Policy: upstream changes are adopted, not reverted.** When an Omarchy update rewrites
+`tmux.conf`, the intent is to take it — review the diff, then commit it as the new baseline.
+Do not restore the pre-update file from the `.bak` just to preserve the old state. Personal
+customizations get re-applied *on top of* the new default rather than blocking it.
+
 ## Conventions
 
 - Every binding carries a `-N "Description"` label. These are not cosmetic:
@@ -93,8 +98,9 @@ exactly what `omarchy-refresh-tmux` will erase, so record it here when it lands.
   Committed the refreshed `tmux.conf` and deleted `tmux.conf.bak.1786746843` (its only unique
   content was one comment line; the setting it described survives at `tmux.conf:81`). Audited
   macOS portability — see Deferred above, no fix applied.
-- **2026-08-14** — `omarchy-refresh-tmux` overwrote `tmux.conf` with the new Omarchy default
-  (backup: `tmux.conf.bak.1786746843`). Net effect: `-N` descriptions on every binding, new
+- **2026-08-14** — **Omarchy Quattro (4.0)** update. `omarchy-refresh-tmux` overwrote
+  `tmux.conf` with the new Omarchy default (backup: `tmux.conf.bak.1786746843`, since removed).
+  Adopted deliberately — see the policy note below. Net effect: `-N` descriptions on every binding, new
   `prefix ?` keybinding popup, and `set -as terminal-features ",*:clipboard"` folded in from the
   earlier migration (its explanatory comment was dropped). No functional keybinding changes.
 - **2026-07-14** — `9b3d0df` pane shortcuts, kitty extended keys, window titles.
