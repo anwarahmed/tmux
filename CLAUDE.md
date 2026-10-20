@@ -55,10 +55,10 @@ customizations get re-applied *on top of* the new default rather than blocking i
 ## Current state
 
 `tmux.conf` is **byte-identical to the Omarchy default** at
-`/usr/share/omarchy/config/tmux/tmux.conf` (verified 2026-08-15). There is currently no
-personal divergence to protect.
+`/usr/share/omarchy/config/tmux/tmux.conf` (re-verified 2026-10-20, Omarchy 4.0.4). There is
+currently no personal divergence to protect.
 
-Local environment: tmux 3.7b, Arch/Omarchy, kitty terminal.
+Local environment: tmux 3.7c, Arch/Omarchy, kitty terminal.
 
 ### Known rough edges (pre-existing, not yet fixed)
 
@@ -94,6 +94,8 @@ exactly what `omarchy-refresh-tmux` will erase, so record it here when it lands.
 
 ## Work log
 
+- **2026-10-20** — Re-checked Current state: `tmux.conf` still matches the Omarchy 4.0.4
+  default; tmux is now 3.7c. No config change.
 - **2026-08-15** — Added this file and extended `.gitignore` to cover `.claude/` and `*.bak.*`.
   Committed the refreshed `tmux.conf` and deleted `tmux.conf.bak.1786746843` (its only unique
   content was one comment line; the setting it described survives at `tmux.conf:81`). Audited
